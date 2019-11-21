@@ -1,0 +1,3 @@
+{% block body %}
+<h1> LuckyNumbers:{{luckyNumberList}}}</h1>
+{% endblock %}
