@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}Gestion des acteurs{% endblock %}
+
+{% block body %}
+    <h1>Acteurs list</h1>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="background-color: #122337;"><center>Id</center></th>
+                <th style="background-color: #122337;"><center>Nom</center></th>
+                <th style="background-color: #122337;"><center>Prenom</center></th>
+                <th style="background-color: #122337;"><center>Datenaissance</center></th>
+                <th style="background-color: #122337;"><center>Sexe</center></th>
+                <th style="background-color: #122337;"><center>Actions</center></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for acteur in acteurs %}
+            <tr>
+                <td><a href="{{ path('acteur_show', { 'id': acteur.id }) }}">{{ acteur.id }}</a></td>
+                <td>{{ acteur.nom }}</td>
+                <td>{{ acteur.prenom }}</td>
+                <td>{% if acteur.dateNaissance %}{{ acteur.dateNaissance|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ acteur.sexe }}</td>
+                <td>
+                    <ul>
+                            <a href="{{ path('acteur_show', { 'id': acteur.id }) }}" class="btn btn-success"> <span class="glyphicon glyphicon-user"></span> show</a>
+                            <a href="{{ path('acteur_edit', { 'id': acteur.id }) }}" class="btn btn-warning"> <span class="glyphicon glyphicon-cog"></span> edit</a>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+            <a href="{{ path('acteur_new') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create a new acteur</a>
+
+{% endblock %}
