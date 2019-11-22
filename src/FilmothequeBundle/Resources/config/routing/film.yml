@@ -1,0 +1,24 @@
+film_index:
+    path:     /
+    defaults: { _controller: "FilmothequeBundle:Film:index" }
+    methods:  GET
+
+film_show:
+    path:     /{id}/show
+    defaults: { _controller: "FilmothequeBundle:Film:show" }
+    methods:  GET
+
+film_new:
+    path:     /new
+    defaults: { _controller: "FilmothequeBundle:Film:new" }
+    methods:  [GET, POST]
+
+film_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FilmothequeBundle:Film:edit" }
+    methods:  [GET, POST]
+
+film_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FilmothequeBundle:Film:delete" }
+    methods:  DELETE
