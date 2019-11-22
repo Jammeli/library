@@ -1,0 +1,114 @@
+<?php
+
+namespace AppBundle\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route; 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method; 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller; 
+use Symfony\Component\HttpFoundation\JsonResponse; 
+use Symfony\Component\HttpFoundation\Response; 
+use Symfony\Component\HttpFoundation\Request; 
+use FOS\RestBundle\Controller\Annotations as Rest; 
+use FilmothequeBundle\Entity\client;
+
+
+class DefaultController extends Controller
+{
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function indexAction(Request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('default/index.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ]);
+    }
+
+    /** 
+     * @Rest\View()
+     * @Rest\Get("/api/categorie")
+    */
+    public function getCategorieAction(Request $request)
+    {
+        $categories = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('FilmothequeBundle:Categorie')
+            ->findAll();
+
+        /* @var $users User[] */
+
+        return $categories;            
+    }
+
+        /** 
+     * @Rest\View()
+     * @Rest\Get("/api/film")
+    */
+    public function getFilmAction(Request $request)
+    {
+        $films = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('FilmothequeBundle:Film')
+            ->findAll();
+
+        /* @var $users User[] */
+
+        return $films;            
+    }
+    /**
+     * @Rest\View(statusCode=Response::HTTP_CREATED)   
+     * @Rest\Post("/api/ajouterClient")
+     */
+    public function ajouterClientAction(Request $request)
+    {
+        $client = new client();
+        $client->setNom($request->get('nom'))
+        ->setEmail($request->get('email'))
+        ->setNumtel($request->get('numtel'))
+        ->setPassword($request->get('password'))
+     ;
+
+       $em=$this->get('doctrine.orm.entity_manager');
+       $em-> persist($client);
+       $em->flush();
+
+
+        $clients = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('FilmothequeBundle:client')
+            ->findAll();
+        return $clients;   
+    }
+    public function listeClientAction(Request $request)
+    {
+
+        $clients = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('FilmothequeBundle:client')
+            ->findAll();
+        return $clients;   
+    }
+    /**
+     * @Rest\View(statusCode=Response::HTTP_CREATED)   
+     * @Rest\Post("/api/supprimerclient")
+     */
+
+    public function supprimerclientAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $id = $request->get('id');
+
+        $user = $this->get('doctrine.orm.entity_manager')
+                     ->getRepository('FilmothequeBundle:client')
+                     ->find($id);
+
+        if($user)  {
+              $em->remove($user);
+          $em->flush();
+
+        }   else{
+            return "client n existe pas";
+        }                
+      
+
+        return("user deleted");
+    }
+
+
+}
