@@ -1,0 +1,16 @@
+filmotheque_categorie:
+    resource: "@FilmothequeBundle/Resources/config/routing/categorie.yml"
+    prefix:   /categorie
+
+filmotheque_homepage:
+    path:     /
+    defaults: { _controller: FilmothequeBundle:Default:index }
+
+filmotheque_acteur:
+    resource: "@FilmothequeBundle/Resources/config/routing/acteur.yml"
+    prefix:   /acteur
+
+filmotheque_film:
+    resource: "@FilmothequeBundle/Resources/config/routing/film.yml"
+    prefix:   /film
+
