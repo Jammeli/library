@@ -1,0 +1,24 @@
+acteur_index:
+    path:     /
+    defaults: { _controller: "FilmothequeBundle:Acteur:index" }
+    methods:  GET
+
+acteur_show:
+    path:     /{id}/show
+    defaults: { _controller: "FilmothequeBundle:Acteur:show" }
+    methods:  GET
+
+acteur_new:
+    path:     /new
+    defaults: { _controller: "FilmothequeBundle:Acteur:new" }
+    methods:  [GET, POST]
+
+acteur_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FilmothequeBundle:Acteur:edit" }
+    methods:  [GET, POST]
+
+acteur_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FilmothequeBundle:Acteur:delete" }
+    methods:  DELETE
